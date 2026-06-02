@@ -3,16 +3,12 @@
   "outputDirectory": "dist",
   "installCommand": "npm install",
   "framework": "vite",
-  "nodeVersion": "22.x",
   "env": {
     "VITE_SUPABASE_URL": "@VITE_SUPABASE_URL",
     "VITE_SUPABASE_ANON_KEY": "@VITE_SUPABASE_ANON_KEY"
   },
   "rewrites": [
-    {
-      "source": "/((?!.*\\..*$|_next|api).*)",
-      "destination": "/index.html"
-    }
+    { "source": "/(.*)", "destination": "/" }
   ],
   "headers": [
     {
