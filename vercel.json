@@ -1,8 +1,10 @@
 {
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/((?!.*\\..*$|_next|api).*)",
-      "destination": "/"
+      "destination": "/index.html"
     }
   ]
 }
