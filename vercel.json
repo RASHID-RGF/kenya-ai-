@@ -4,9 +4,10 @@
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/(.*)" },
     {
-      "source": "/(?!api/|_next/|static/|assets/|.*\\.(?:ico|png|jpg|jpeg|gif|svg|webp|css|js|map|json)$)(.*)",
+      "source": "/((?!api)(.*))",
       "destination": "/"
     }
   ]
 }
+
 
