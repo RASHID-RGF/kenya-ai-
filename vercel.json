@@ -1,14 +1,12 @@
+
+
 {
-  "version": 2,
-  "framework": "vite",
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist/client",
   "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/(.*)" },
     {
-      "source": "/((?!.*\\.).*)",
-      "destination": "/index.html"
+      "source": "/(?!api/|_next/|static/|assets/|.*\\.(?:ico|png|jpg|jpeg|gif|svg|webp|css|js|map|json)$)(.*)",
+      "destination": "/"
     }
   ]
 }
-
 
