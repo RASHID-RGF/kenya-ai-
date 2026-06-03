@@ -1,0 +1,19 @@
+# dependencies
+node_modules
+
+# tooling
+.bun
+
+# local env
+.env
+.env.*
+
+# repo tooling
+supabase/
+wrangler.jsonc
+
+# misc
+README.md
+TODO_VERCEL.md
+
+
