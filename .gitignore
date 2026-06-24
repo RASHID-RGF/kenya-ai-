@@ -19,6 +19,11 @@ dist-ssr
 # local env
 .env
 .env.*
+.env.local
+.env.production
+
+# Example env (safe)
+!.env.example
 
 # Wrangler / Cloudflare
 .wrangler/
