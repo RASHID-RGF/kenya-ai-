@@ -16,7 +16,7 @@ const SECTIONS = [
     id: "overview",
     icon: BookOpen,
     title: "System Overview",
-    content: `JARVIS (Just A Rather Very Intelligent System) is a futuristic, voice-first holographic AI assistant inspired by Iron Man's iconic AI. It combines a sleek holographic interface with real-time voice interaction, file analysis, screen sharing, and streaming AI capabilities powered by Azure OpenAI.
+    content: `JARVIS (Just A Rather Very Intelligent System) is a futuristic, voice-first holographic AI assistant designed for the RAOQ1P9W system. It combines a sleek holographic interface with real-time voice interaction, file analysis, screen sharing, and streaming AI capabilities powered by Azure OpenAI.
 
 The system is built as a static web application using React, TanStack Router, and Tailwind CSS, deployable anywhere static sites are supported.`,
   },
@@ -147,7 +147,7 @@ function DocsPage() {
         {/* Footer */}
         <div className="text-center pb-8">
           <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground/60">
-            STARK INDUSTRIES — HOLOGRAPHIC INTERFACE • JARVIS OS v3.7.0
+            RAOQ1P9W — HOLOGRAPHIC INTERFACE • JARVIS OS v4.0
           </p>
           <p className="mt-2 text-[10px] text-muted-foreground/40">
             Powered by Azure OpenAI • TanStack • React • Tailwind CSS

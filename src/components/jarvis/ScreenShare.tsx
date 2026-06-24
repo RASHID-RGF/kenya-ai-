@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Monitor, MonitorStop } from "lucide-react";
+import { Monitor, MonitorStop, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
@@ -11,8 +11,10 @@ interface Props {
 
 export function ScreenShare({ onFrame, onActiveChange, disabled }: Props) {
   const [active, setActive] = useState(false);
+  const [showPreview, setShowPreview] = useState(true);
   const mediaRef = useRef<MediaStream | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const visibleVideoRef = useRef<HTMLVideoElement | null>(null);
   const intervalRef = useRef<number | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -35,6 +37,9 @@ export function ScreenShare({ onFrame, onActiveChange, disabled }: Props) {
     }
     if (videoRef.current) {
       videoRef.current.srcObject = null;
+    }
+    if (visibleVideoRef.current) {
+      visibleVideoRef.current.srcObject = null;
     }
     setActive(false);
     onActiveChange(false);
@@ -76,7 +81,7 @@ export function ScreenShare({ onFrame, onActiveChange, disabled }: Props) {
 
       mediaRef.current = stream;
 
-      // Create hidden video element
+      // Create hidden video element for frame capture
       const video = document.createElement("video");
       video.srcObject = stream;
       video.muted = true;
@@ -122,7 +127,56 @@ export function ScreenShare({ onFrame, onActiveChange, disabled }: Props) {
         {active ? <MonitorStop className="h-4 w-4" /> : <Monitor className="h-4 w-4" />}
       </Button>
 
-      {/* Active indicator */}
+      {/* Screen preview panel - shown when sharing */}
+      {active && (
+        <div className="fixed bottom-20 right-6 z-50 w-64 rounded-xl glass-panel border border-primary/30 overflow-hidden shadow-2xl animate-fade-up">
+          {/* Preview header */}
+          <div className="flex items-center justify-between px-3 py-2 bg-background/80 border-b border-primary/20">
+            <div className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-danger animate-pulse" />
+              <span className="text-[9px] uppercase tracking-wider text-muted-foreground">Screen Share</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => setShowPreview(!showPreview)}
+                className="w-5 h-5 flex items-center justify-center rounded text-muted-foreground hover:text-primary transition-smooth"
+                title={showPreview ? "Hide preview" : "Show preview"}
+              >
+                {showPreview ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
+              </button>
+              <button
+                onClick={stopCapture}
+                className="w-5 h-5 flex items-center justify-center rounded text-muted-foreground hover:text-danger transition-smooth"
+                title="Stop sharing"
+              >
+                <MonitorStop className="h-3 w-3" />
+              </button>
+            </div>
+          </div>
+          {/* Visible video preview */}
+          <div className={`relative ${showPreview ? "aspect-video" : "h-0"} bg-black overflow-hidden`}>
+            <video
+              ref={(el) => {
+                if (el && mediaRef.current) {
+                  el.srcObject = mediaRef.current;
+                  el.play();
+                  visibleVideoRef.current = el;
+                }
+              }}
+              muted
+              playsInline
+              className={`w-full h-full object-contain ${showPreview ? "" : "hidden"}`}
+            />
+            {!showPreview && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Monitor className="h-6 w-6 text-muted-foreground/40" />
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Active banner */}
       {active && (
         <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2 rounded-full bg-danger/90 text-white text-xs uppercase tracking-wider shadow-lg animate-fade-up">
           <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
