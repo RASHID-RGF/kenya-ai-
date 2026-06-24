@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Mic, MessageSquare, X } from "lucide-react";
+import { Mic, MessageSquare, X, BookOpen } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
 import { BootSequence } from "@/components/jarvis/BootSequence";
 import { StatusBar } from "@/components/jarvis/StatusBar";
@@ -108,8 +108,17 @@ function Index() {
           </section>
         </main>
 
-        <footer className="px-6 pb-4 text-center text-[10px] uppercase tracking-[0.3em] text-muted-foreground/60">
-          STARK INDUSTRIES — HOLOGRAPHIC INTERFACE
+        <footer className="px-6 pb-4 text-center space-y-2">
+          <Link
+            to="/docs"
+            className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground/60 hover:text-primary transition-smooth"
+          >
+            <BookOpen className="h-3 w-3" />
+            System Documentation
+          </Link>
+          <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground/60">
+            STARK INDUSTRIES — HOLOGRAPHIC INTERFACE
+          </p>
         </footer>
 
         {/* Persistent CommandConsole — hidden offscreen until opened, so it keeps state and continues to power voice */}

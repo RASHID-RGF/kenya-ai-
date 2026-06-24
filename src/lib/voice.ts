@@ -3,14 +3,14 @@
 
 type SpeechRecognitionAPI = any;
 
-export function getRecognition(): SpeechRecognitionAPI | null {
+export function getRecognition({ continuous = false }: { continuous?: boolean } = {}): SpeechRecognitionAPI | null {
   if (typeof window === "undefined") return null;
   const Ctor =
     (window as any).SpeechRecognition ||
     (window as any).webkitSpeechRecognition;
   if (!Ctor) return null;
   const rec = new Ctor();
-  rec.continuous = false;
+  rec.continuous = continuous;
   rec.interimResults = true;
   rec.lang = "en-US";
   return rec;
@@ -48,4 +48,8 @@ export function stopSpeaking() {
   if (typeof window !== "undefined" && "speechSynthesis" in window) {
     window.speechSynthesis.cancel();
   }
+}
+
+export function isSpeaking(): boolean {
+  return typeof window !== "undefined" && "speechSynthesis" in window && window.speechSynthesis.speaking;
 }
