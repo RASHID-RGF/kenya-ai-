@@ -6,14 +6,5 @@
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-// Build as static SPA
-export default defineConfig({
-  tanstackStart: {
-    adapter: "static",
-  },
-  vite: {
-    build: {
-      ssr: false,
-    },
-  },
-});
+// Build for Cloudflare Workers (SSR)
+export default defineConfig({});
